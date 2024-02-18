@@ -1,0 +1,114 @@
+class Nodo:
+    def __init__(self, nombre, apellido, carnet):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.carnet = carnet
+        self.anterior = None
+        self.siguiente = None
+
+class Lista:
+    def __init__(self):
+        self.cabeza = None
+
+    def agregar_al_principio_de_la_lista(self, nombre, apellido, carnet):
+        nuevo_nodo = Nodo(nombre, apellido, carnet)
+        nuevo_nodo.siguiente = self.cabeza
+        self.cabeza.anterior = nuevo_nodo
+        self.cabeza = nuevo_nodo
+
+    def insertar_al_final_de_la_lista(self, nombre, apellido, carnet):
+        if self.cabeza == None:
+            nuevo_nodo= Nodo(nombre,apellido,carnet)
+            self.cabeza= nuevo_nodo
+            return
+        apuntador = self.cabeza
+        while apuntador.siguiente != None:
+            apuntador=apuntador.siguiente
+        nuevo_nodo = Nodo(nombre, apellido, carnet)
+        apuntador.siguiente = nuevo_nodo
+        nuevo_nodo.anterior = apuntador
+
+    def mostrar_lista(self):
+        if self.cabeza == None:
+            print("La lista esta vacia")
+            return
+        else:
+            apuntador = self.cabeza
+            while apuntador != None:
+                print(apuntador.elemento, "")
+                apuntador = apuntador.siguiente
+    def eliminar_dato(self):
+        if self.cabeza== None:
+            print("Lista vacia no se puede eliminar nada")
+            return
+        if self.cabeza.siguiente == None:
+            self.cabeza= None
+        self.cabeza = self.cabeza.siguiente
+        self.cabeza.anterior= None
+    def elimina_final(self):
+        if self.cabeza==None:
+            print("Lista Vacia")
+            return
+        if self.cabeza.siguiente== None:
+            self.cabeza= None
+            return
+        apuntador = self.cabeza
+        while apuntador.siguiente != None:
+            apuntador = apuntador.siguiente
+        apuntador.anterior.siguiente = None
+
+    def eliminar_dato_de_la_lista(self, x):
+        if self.cabeza == None:
+            print("La lista esta vacia")
+            return
+        if self.cabeza.siguiente == None:
+            if self.cabeza.elemento == x:
+                self.cabeza = None
+            else:
+                print("El elemento no existe")
+        if self.cabeza.elemento == x:
+            self.eliminar_dato()
+            return
+        apuntador = self.cabeza
+        while apuntador.siguiente != None:
+            if apuntador.elemento == x:
+                break
+            apuntador = apuntador.siguiente
+        if apuntador.siguiente != None:
+            apuntador.anterior.siguiente = apuntador.siguiente
+            apuntador.siguiente.anterior = apuntador.anterior
+        else:
+            if apuntador.elemento == x:
+                self.elimina_final()
+            else:
+                return print("No se encontro el dato")
+x= 0
+x2= 0
+while x2<5:
+    print("Opcion 1: Ingresar dato al principio del nodo")
+    print("Opcion 2: Ingresar dato al final del nodo")
+    print("Opcion 3: Eliminar dato Datos de la lista")
+    print("Opcion 4: Mostrar Lista")
+    print("Opcion 5: Salir del programa")
+    x = input("Seleccione el numero de alguna de las anteriores: ")
+    x2 = int(x)
+
+    if (x2 == 1):
+        nombre = input("Ingrese el nuevo nombre: ")
+        apellido = input("Ingrese el nuevo apellido: ")
+        carnet = input("Ingrese el nuevo carnet: ")
+        Lista.agregar_al_principio_de_la_lista(nombre, apellido, carnet)
+    elif (x2 == 2):
+        nombre = input("Ingrese el nuevo nombre: ")
+        apellido = input("Ingrese el nuevo apellido: ")
+        carnet = input("Ingrese el nuevo carnet: ")
+        Lista.insertar_al_final_de_la_lista(nombre, apellido, carnet)
+    elif (x2 == 3):
+        buscar = input("Ingrese el nombre a eliminar: ")
+        Lista.eliminar_dato_de_la_lista(buscar)
+    if (x2 == 4):
+        Lista.mostrar_lista(Nodo)
+    elif (x2 == 5):
+	    print("Saliendo del programa")
+    else:
+	    print("No se selecciono ninguna Opcion")
